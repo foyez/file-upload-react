@@ -6,10 +6,10 @@ class DropDownArea extends React.Component {
     console.log(this.props)
   }
 
-  onChangeDropDown = e => {
+  handleSelectedArea = e => {
     console.log(e.target.value)
-    const selectedValue = e.target.value
-    this.props.cbFn(selectedValue)
+    const selectedArea = e.target.value
+    this.props.cbFn(selectedArea)
   }
 
   render() {
@@ -18,7 +18,7 @@ class DropDownArea extends React.Component {
         <div>
           <select
             defaultValue={this.props.defaultOption}
-            onChange={this.onChangeDropDown}
+            onChange={this.handleSelectedArea}
           >
             <option disabled>{this.props.defaultOption}</option>
             { this.props.areas.map(area => <option key={area.id} value={area.id}>{area.area_name}</option>) }
