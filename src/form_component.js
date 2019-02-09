@@ -6,7 +6,8 @@ import DropDownRoad from './dropdown_road'
 import InputJson from './input_json'
 import InputImage from './input_image'
 
-const endpoint = 'http://localhost:8000/upload'
+// const endpoint = 'http://localhost:8000/upload'
+const endpoint = 'http://192.168.0.114/api/streetview'
 
 class FormComponent extends React.Component {
   constructor() {
@@ -75,11 +76,29 @@ class FormComponent extends React.Component {
     console.log(this.state.json)
     console.log(this.state.selectedFiles)
 
-    // const json = this.state.json
+    const json = this.state.json
     const images = this.state.selectedFiles
     const data = new FormData()
 
-    data.append('imageLink', images[0], images[0].name)
+    console.log(typeof(images))
+
+    json.data.forEach((element, i) => {
+      data.append('imageLink[]', images[i], images[i].name)
+      data.append('longitude[]', json.data[i].longitude)
+      data.append('latitude[]', json.data[i].latitude)
+      data.append('geometry_id[]', this.state.roadId)
+      // console.log(images[i].name)
+      // console.log(json.data[i].longitude)
+      // console.log(json.data[i].latitude)
+      // console.log(this.state.roadId)
+      // console.log(data.imageLink[i])
+      // console.log(data.longitude[i])
+      // console.log(data.latitude[i])
+      // console.log(data.geometry_id[i])
+    })
+    console.log(data.get('latitude'))
+
+    // data.append('imageLink', images[0], images[0].name)
     // data.append('longitude', json.data[0].longitude)
     // data.append('latitude', json.data[0].latitude)
     // data.append('geometry_id', this.state.roadId)
