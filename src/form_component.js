@@ -7,6 +7,8 @@ import InputJson from './input_json'
 import InputImage from './input_image'
 
 // const endpoint = 'http://localhost:8000/upload'
+// const endpoint = 'http://192.168.0.116:8000/upload'
+// const proxyurl = "https://cors-anywhere.herokuapp.com/"
 const endpoint = 'http://192.168.0.114/api/streetview'
 
 class FormComponent extends React.Component {
@@ -20,6 +22,7 @@ class FormComponent extends React.Component {
       json: null,
       selectedFiles: null,
       loaded: 0,
+      message: '',
       validForm: false
     }
   }
@@ -81,27 +84,16 @@ class FormComponent extends React.Component {
     const data = new FormData()
 
     console.log(typeof(images))
+    console.log(json)
+    console.log(images)
 
-    json.data.forEach((element, i) => {
+    if(json !== null && images !== null) {
+      json.data.forEach((element, i) => {
       data.append('imageLink[]', images[i], images[i].name)
       data.append('longitude[]', json.data[i].longitude)
       data.append('latitude[]', json.data[i].latitude)
       data.append('geometry_id[]', this.state.roadId)
-      // console.log(images[i].name)
-      // console.log(json.data[i].longitude)
-      // console.log(json.data[i].latitude)
-      // console.log(this.state.roadId)
-      // console.log(data.imageLink[i])
-      // console.log(data.longitude[i])
-      // console.log(data.latitude[i])
-      // console.log(data.geometry_id[i])
     })
-    console.log(data.get('latitude'))
-
-    // data.append('imageLink', images[0], images[0].name)
-    // data.append('longitude', json.data[0].longitude)
-    // data.append('latitude', json.data[0].latitude)
-    // data.append('geometry_id', this.state.roadId)
 
     axios
       .post(endpoint, data, {
@@ -113,14 +105,27 @@ class FormComponent extends React.Component {
       })
       .then(res => {
         console.log(res.statusText)
+        if(res.statusText === 'OK') {
+          // alert('Your files are uploaded successfully :)')
+          this.setState({
+            message: 'Your files are uploaded successfully :)'
+          })
+        }
       })
+    } else {
+      // alert('Please select the required options.')
+      this.setState({
+        message: 'Please select the required options.'
+      })
+    }
   }
 
   render() {
     const validForm = !this.state.validForm
 
     return { validForm } ? (
-      <div>
+      <div className="container">
+        <span className="message">{this.state.message}</span>
         <DropDownArea
           areas={this.state.areas}
           defaultOption='Select an Area'
@@ -137,8 +142,12 @@ class FormComponent extends React.Component {
         <InputImage
           cbFn={this.callUploadFiles}
         />
-        <button onClick={this.handleUpload}>Upload</button>
-        <div> {Math.round(this.state.loaded, 2)} %</div>
+        <button 
+          disabled={this.state.loaded !== 0}
+          onClick={this.handleUpload}
+          className="upload-btn"
+        >Upload</button>
+        <span className="percentage"> {Math.round(this.state.loaded, 2)} %</span>
         
       </div>
     ) : (

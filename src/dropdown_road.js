@@ -19,6 +19,8 @@ class DropDownRoad extends React.Component {
           <select 
             defaultValue={this.props.defaultOption}
             onChange={this.handleSelectedRoad}
+            className="dropdown"
+            required
           >
             <option disabled>{this.props.defaultOption}</option>
             { this.props.roads.map(road => <option key={road.id} value={road.id}>{road.road_name_number}</option>)}

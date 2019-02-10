@@ -20,10 +20,14 @@ class InputJson extends React.Component {
 
   render() {
     return (
-      <input
-        type="file"
-        onChange={this.handleSelectedFile}
-      />
+      <div>
+        <p className="attach-text">Attach a JSON file:</p>
+        <input
+          type="file"
+          onChange={this.handleSelectedFile}
+          className="attach-file"
+        />
+      </div>
     )
   }
 }

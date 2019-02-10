@@ -14,11 +14,15 @@ class InputImage extends React.Component {
 
   render() {
     return (
-      <input
-        type='file'
-        onChange={this.handleSelectedFiles}
-        multiple
-      />
+      <div>
+        <p className="attach-text">Attach images:</p>
+        <input
+          type='file'
+          onChange={this.handleSelectedFiles}
+          className="attach-file"
+          multiple
+        />
+      </div>
     )
   }
 }
