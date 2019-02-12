@@ -77,6 +77,11 @@ select option {
   margin-right: 15rem;
 }
 
+.upload-btn:disabled {
+  cursor: default;
+  background-color: grey;
+}
+
 .percentage {
   /* position: absolute;
   right: 0; */
