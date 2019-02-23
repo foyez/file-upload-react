@@ -8,8 +8,11 @@ class DropDownRoad extends React.Component {
 
   handleSelectedRoad = (e) => {
     const selectedRoad = e.target.value
+    const selectedIndex = e.nativeEvent.target.selectedIndex
+    const selectedText = e.nativeEvent.target[selectedIndex].text
     console.log(selectedRoad)
-    this.props.cbFn(selectedRoad)
+    console.log(selectedText)
+    this.props.cbFn(selectedRoad, selectedText)
   }
 
   render() {

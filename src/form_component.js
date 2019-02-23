@@ -19,6 +19,7 @@ class FormComponent extends React.Component {
       roads: [],
       areaId: null,
       roadId: null,
+      roadName: '',
       json: null,
       selectedFiles: null,
       loaded: 0,
@@ -54,9 +55,10 @@ class FormComponent extends React.Component {
       })
   }
 
-  callUploadGeoId = roadId => {
+  callUploadGeoId = (roadId, roadName) => {
     this.setState({
       roadId: roadId,
+      roadName: roadName,
     })
   }
 
@@ -65,7 +67,7 @@ class FormComponent extends React.Component {
       json: json
     })
     console.log(json)
-    // console.log(this.state.selectedFiles)
+    console.log(this.state.roadName)
   }
 
   callUploadFiles = (files) => {
@@ -78,6 +80,7 @@ class FormComponent extends React.Component {
   handleUpload = () => {
     console.log(this.state.json)
     console.log(this.state.selectedFiles)
+    
 
     const json = this.state.json
     const images = this.state.selectedFiles
@@ -93,6 +96,7 @@ class FormComponent extends React.Component {
       data.append('longitude[]', json.data[i].longitude)
       data.append('latitude[]', json.data[i].latitude)
       data.append('geometry_id[]', this.state.roadId)
+      data.append('road_name[]', this.state.roadName)
     })
 
     axios
@@ -109,6 +113,10 @@ class FormComponent extends React.Component {
           // alert('Your files are uploaded successfully :)')
           this.setState({
             message: 'Your files are uploaded successfully :)'
+          })
+        } else if(res.statusText === undefined) {
+          this.setState({
+            message: 'Something is wrong :('
           })
         }
       })
