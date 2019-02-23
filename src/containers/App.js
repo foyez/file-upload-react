@@ -1,17 +1,17 @@
 import React from 'react'
 import axios from 'axios'
 
-import DropDownArea from './dropdown_area'
-import DropDownRoad from './dropdown_road'
-import InputJson from './input_json'
-import InputImage from './input_image'
+import DropDownArea from '../components/dropdown_area'
+import DropDownRoad from '../components/dropdown_road'
+import InputJson from '../components/input_json'
+import InputImage from '../components/input_image'
 
 // const endpoint = 'http://localhost:8000/upload'
 // const endpoint = 'http://192.168.0.116:8000/upload'
 // const proxyurl = "https://cors-anywhere.herokuapp.com/"
 const endpoint = 'http://192.168.0.114/api/streetview'
 
-class FormComponent extends React.Component {
+class App extends React.Component {
   constructor() {
     super()
     this.state = {
@@ -164,4 +164,4 @@ class FormComponent extends React.Component {
   }
 }
 
-export default FormComponent
+export default App

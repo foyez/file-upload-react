@@ -1,11 +1,11 @@
 import React from 'react'
 import { render } from 'react-dom'
-import FormComponent from './form_component'
+import App from './containers/App'
 
-const App = () => (
-  <div>
-    <FormComponent />
-  </div>
-)
+// const App = () => (
+//   <div>
+//     <FormComponent />
+//   </div>
+// )
 
 render(<App />, document.getElementById('root'))
