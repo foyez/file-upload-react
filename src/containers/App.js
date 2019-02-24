@@ -114,11 +114,14 @@ class App extends React.Component {
           this.setState({
             message: 'Your files are uploaded successfully :)'
           })
-        } else if(res.statusText === undefined) {
-          this.setState({
-            message: 'Something is wrong :('
-          })
         }
+      })
+      .catch(err => {
+        this.setState({
+          message: 'Something is wrong :(',
+          loaded: 0
+        })
+        console.log(err)
       })
     } else {
       // alert('Please select the required options.')
