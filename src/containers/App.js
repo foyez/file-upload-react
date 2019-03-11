@@ -6,10 +6,7 @@ import DropDownRoad from '../components/dropdown_road'
 import InputJson from '../components/input_json'
 import InputImage from '../components/input_image'
 
-// const endpoint = 'http://localhost:8000/upload'
-// const endpoint = 'http://192.168.0.116:8000/upload'
-// const proxyurl = "https://cors-anywhere.herokuapp.com/"
-const endpoint = 'http://192.168.0.114/api/streetview'
+const endpoint = 'http://192.168.0.112/api/streetview'
 
 class App extends React.Component {
   constructor() {
@@ -47,7 +44,14 @@ class App extends React.Component {
     axios
       .get(`https://map.barikoi.xyz:8070/api/area/get/road/${areaId}`)
       .then(res => {
-        const roads = res.data
+        let roads = res.data
+        roads = roads.sort((a, b) => {
+          if(a.road_name_number < b.road_name_number) { return -1; }
+          if(a.road_name_number > b.road_name_number) { return 1; }
+          return 0;
+        })
+
+        console.log(roads);
         this.setState({
           roads: roads,
           areaId: areaId
@@ -110,7 +114,6 @@ class App extends React.Component {
       .then(res => {
         console.log(res.statusText)
         if(res.statusText === 'OK') {
-          // alert('Your files are uploaded successfully :)')
           this.setState({
             message: 'Your files are uploaded successfully :)'
           })
@@ -124,7 +127,6 @@ class App extends React.Component {
         console.log(err)
       })
     } else {
-      // alert('Please select the required options.')
       this.setState({
         message: 'Please select the required options.'
       })
