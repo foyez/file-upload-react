@@ -6,7 +6,8 @@ import DropDownRoad from '../components/dropdown_road'
 import InputJson from '../components/input_json'
 import InputImage from '../components/input_image'
 
-const endpoint = 'http://192.168.0.112/api/streetview'
+// const endpoint = 'http://192.168.0.112/api/streetview'
+const endpoint = 'https://api.barikoi.xyz:8080/api/streetview'
 
 class App extends React.Component {
   constructor() {
@@ -108,6 +109,7 @@ class App extends React.Component {
         onUploadProgress: ProgressEvent => {
           this.setState({
             loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
+            message: ''
           })
         },
       })
@@ -121,7 +123,7 @@ class App extends React.Component {
       })
       .catch(err => {
         this.setState({
-          message: 'Something is wrong :(',
+          message: err.message, // 'Something is wrong :('
           loaded: 0
         })
         console.log(err)
