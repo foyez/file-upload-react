@@ -1,10 +1,10 @@
 import React from 'react'
 
 class InputJson extends React.Component {
-  constructor(props) {
-    super(props)
-    console.log(this.props)
-  }
+  // constructor(props) {
+  //   super(props)
+  //   console.log(this.props)
+  // }
 
   handleSelectedFile = e => {
     const selectedFile = e.target.files[0]

@@ -69,10 +69,11 @@ class App extends React.Component {
 
   callUploadData = (json) => {
     this.setState({
-      json: json
+      json: json,
+      // roadName: json.name,
     })
     console.log(json)
-    console.log(this.state.roadName)
+    // console.log('Road Name: ', this.state.roadName)
   }
 
   callUploadFiles = (files) => {
@@ -91,9 +92,10 @@ class App extends React.Component {
     const images = this.state.selectedFiles
     const data = new FormData()
 
-    console.log(typeof(images))
+    // console.log(typeof(images))
     console.log(json)
     console.log(images)
+    console.log(this.state.roadName);
 
     if(json !== null && images !== null) {
       json.data.forEach((element, i) => {

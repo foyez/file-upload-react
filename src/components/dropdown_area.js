@@ -1,10 +1,6 @@
 import React from 'react'
 
 class DropDownArea extends React.Component {
-  constructor(props) {
-    super(props)
-    console.log(this.props)
-  }
 
   handleSelectedArea = e => {
     console.log(e.target.value)

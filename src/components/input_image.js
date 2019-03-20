@@ -1,10 +1,10 @@
 import React from 'react'
 
 class InputImage extends React.Component {
-  constructor(props) {
-    super(props)
-    console.log(this.props)
-  }
+  // constructor(props) {
+  //   super(props)
+  //   console.log(this.props)
+  // }
 
   handleSelectedFiles = (e) => {
     const selectedFiles = e.target.files

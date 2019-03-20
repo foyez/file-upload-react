@@ -78,7 +78,7 @@ select option {
 }
 
 .upload-btn:disabled {
-  cursor: default;
+  cursor: not-allowed;
   background-color: grey;
 }
 
