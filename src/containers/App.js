@@ -1,176 +1,175 @@
-import React from 'react'
-import axios from 'axios'
+import React from "react";
+import axios from "axios";
 
-import DropDownArea from '../components/dropdown_area'
-import DropDownRoad from '../components/dropdown_road'
-import InputJson from '../components/input_json'
-import InputImage from '../components/input_image'
+import DropDownArea from "../components/dropdown_area";
+import DropDownRoad from "../components/dropdown_road";
+import InputJson from "../components/input_json";
+import InputImage from "../components/input_image";
 
 // const endpoint = 'http://192.168.0.112/api/streetview'
-const endpoint = 'https://api.barikoi.xyz:8080/api/streetview'
+const endpoint = "https://api.barikoi.xyz:8080/api/streetview";
 
 class App extends React.Component {
   constructor() {
-    super()
+    super();
     this.state = {
       areas: [],
       roads: [],
       areaId: null,
       roadId: null,
-      roadName: '',
-      json: null,
-      selectedFiles: null,
+      roadName: "",
+      imgJSON: null,
+      geoJSON: null,
       loaded: 0,
-      message: '',
+      message: "",
       validForm: false
-    }
+    };
   }
 
   componentDidMount() {
-    this.callAreas()
+    this.callAreas();
   }
 
   callAreas = () => {
-    axios
-      .get('https://map.barikoi.xyz:8070/api/area')
-      .then(res => {
-        const areas = res.data
-        this.setState({
-          areas: areas
-        })
-      })
-  }
+    axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
+      const areas = res.data;
+      this.setState({
+        areas: areas
+      });
+    });
+  };
 
   callRoads = areaId => {
-    axios
-      .get(`https://map.barikoi.xyz:8070/api/area/get/road/${areaId}`)
-      .then(res => {
-        let roads = res.data
-        roads = roads.sort((a, b) => {
-          if(a.road_name_number < b.road_name_number) { return -1; }
-          if(a.road_name_number > b.road_name_number) { return 1; }
-          return 0;
-        })
+    axios.get(`https://map.barikoi.xyz:8070/api/area/get/road/${areaId}`).then(res => {
+      let roads = res.data;
+      roads = roads.sort((a, b) => {
+        if (a.road_name_number < b.road_name_number) {
+          return -1;
+        }
+        if (a.road_name_number > b.road_name_number) {
+          return 1;
+        }
+        return 0;
+      });
 
-        console.log(roads);
-        this.setState({
-          roads: roads,
-          areaId: areaId
-        })
-      })
-  }
+      console.log(roads);
+      this.setState({
+        roads: roads,
+        areaId: areaId
+      });
+    });
+  };
 
   callUploadGeoId = (roadId, roadName) => {
     this.setState({
       roadId: roadId,
-      roadName: roadName,
-    })
-  }
+      roadName: roadName
+    });
+  };
 
-  callUploadData = (json) => {
+  handleImgJSON = imgJSON => {
     this.setState({
-      json: json,
-      // roadName: json.name,
-    })
-    console.log(json)
+      imgJSON: imgJSON
+      // roadName: imgJSON.name,
+    });
+    // console.log(imgJSON);
     // console.log('Road Name: ', this.state.roadName)
-  }
+  };
 
-  callUploadFiles = (files) => {
+  handleGeoJSON = geoJSON => {
     this.setState({
-      selectedFiles: files,
+      geoJSON: geoJSON,
       loaded: 0
-    })
-  }
+    });
+  };
 
   handleUpload = () => {
-    console.log(this.state.json)
-    console.log(this.state.selectedFiles)
-    
+    this.state.imgJSON.scenes.forEach(scene => {
+      // scene.geometry_id = this.state.roadId;
+      this.state.geoJSON.data.forEach(point => {
+        scene.latitude = point.latitude;
+        scene.longitude = point.longitude;
+      });
+    });
 
-    const json = this.state.json
-    const images = this.state.selectedFiles
-    const data = new FormData()
+    const imgJSON = { ...this.state.imgJSON };
+    const geoJSON = { ...this.state.geoJSON };
 
-    // console.log(typeof(images))
-    console.log(json)
-    console.log(images)
-    console.log(this.state.roadName);
+    imgJSON.scenes.forEach((scene, i) => {
+      scene.latitude = geoJSON.data[i].latitude;
+      scene.longitude = geoJSON.data[i].longitude;
+    });
+    imgJSON.geometry_id = this.state.roadId;
 
-    if(json !== null && images !== null) {
-      json.data.forEach((element, i) => {
-      data.append('imageLink[]', images[i], images[i].name)
-      data.append('longitude[]', json.data[i].longitude)
-      data.append('latitude[]', json.data[i].latitude)
-      data.append('geometry_id[]', this.state.roadId)
-      data.append('road_name[]', this.state.roadName)
-    })
+    console.log(imgJSON);
 
-    axios
-      .post(endpoint, data, {
-        onUploadProgress: ProgressEvent => {
-          this.setState({
-            loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-            message: ''
-          })
-        },
-      })
-      .then(res => {
-        console.log(res.statusText)
-        if(res.statusText === 'OK') {
-          this.setState({
-            message: 'Your files are uploaded successfully :)'
-          })
-        }
-      })
-      .catch(err => {
-        this.setState({
-          message: err.message, // 'Something is wrong :('
-          loaded: 0
-        })
-        console.log(err)
-      })
-    } else {
-      this.setState({
-        message: 'Please select the required options.'
-      })
-    }
-  }
+    // console.log(this.state.json);
+    // console.log(this.state.geoJSON);
+    // const json = this.state.json;
+    // const images = this.state.geoJSON;
+    // const data = new FormData();
+    // // console.log(typeof(images))
+    // console.log(json);
+    // console.log(images);
+    // console.log(this.state.roadName);
+    // if (json !== null && images !== null) {
+    //   json.data.forEach((element, i) => {
+    //     data.append("imageLink[]", images[i], images[i].name);
+    //     data.append("longitude[]", json.data[i].longitude);
+    //     data.append("latitude[]", json.data[i].latitude);
+    //     data.append("geometry_id[]", this.state.roadId);
+    //     data.append("road_name[]", this.state.roadName);
+    //   });
+    //   axios
+    //     .post(endpoint, data, {
+    //       onUploadProgress: ProgressEvent => {
+    //         this.setState({
+    //           loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
+    //           message: ""
+    //         });
+    //       }
+    //     })
+    //     .then(res => {
+    //       console.log(res.statusText);
+    //       if (res.statusText === "OK") {
+    //         this.setState({
+    //           message: "Your files are uploaded successfully :)"
+    //         });
+    //       }
+    //     })
+    //     .catch(err => {
+    //       this.setState({
+    //         message: err.message, // 'Something is wrong :('
+    //         loaded: 0
+    //       });
+    //       console.log(err);
+    //     });
+    // } else {
+    //   this.setState({
+    //     message: "Please select the required options."
+    //   });
+    // }
+  };
 
   render() {
-    const validForm = !this.state.validForm
+    const validForm = !this.state.validForm;
 
     return { validForm } ? (
       <div className="container">
         <span className="message">{this.state.message}</span>
-        <DropDownArea
-          areas={this.state.areas}
-          defaultOption='Select an Area'
-          cbFn={this.callRoads}
-        />
-        <DropDownRoad
-          roads={this.state.roads}
-          defaultOption='Select a Road'
-          cbFn={this.callUploadGeoId}
-        />
-        <InputJson
-          cbFn={this.callUploadData}
-        />
-        <InputImage
-          cbFn={this.callUploadFiles}
-        />
-        <button 
-          disabled={this.state.loaded !== 0}
-          onClick={this.handleUpload}
-          className="upload-btn"
-        >Upload</button>
+        <DropDownArea areas={this.state.areas} defaultOption="Select an Area" cbFn={this.callRoads} />
+        <DropDownRoad roads={this.state.roads} defaultOption="Select a Road" cbFn={this.callUploadGeoId} />
+        <InputJson cbFn={this.handleImgJSON} />
+        <InputImage cbFn={this.handleGeoJSON} />
+        <button disabled={this.state.loaded !== 0} onClick={this.handleUpload} className="upload-btn">
+          Upload
+        </button>
         <span className="percentage"> {Math.round(this.state.loaded, 2)} %</span>
-        
       </div>
     ) : (
       <div>Hello</div>
-    )
+    );
   }
 }
 
-export default App
+export default App;

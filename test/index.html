@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
+    <title>Document</title>
+  </head>
+  <body>
+    <input
+      id="fileInput"
+      type="file"
+      multiple
+      directory
+      ondragover="alertLength(event);"
+      onchange="handleChangeEvent(event);"
+    />
+
+    <script type="text/javascript">
+      function handleChangeEvent(e) {
+        // change event fires on input element
+        var input = document.getElementById("fileInput");
+
+        if ("getFilesAndDirectories" in input) {
+          input.getFilesAndDirectories().then(function(filesAndDirs) {
+            // iterate through each item
+            // see drag and drop example below for more details
+          });
+        }
+      }
+    </script>
+  </body>
+</html>

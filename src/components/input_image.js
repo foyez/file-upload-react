@@ -1,4 +1,4 @@
-import React from 'react'
+import React from "react";
 
 class InputImage extends React.Component {
   // constructor(props) {
@@ -6,25 +6,29 @@ class InputImage extends React.Component {
   //   console.log(this.props)
   // }
 
-  handleSelectedFiles = (e) => {
-    const selectedFiles = e.target.files
-    console.log(selectedFiles)
-    this.props.cbFn(selectedFiles)
-  }
+  handleSelectedFile = e => {
+    // const selectedFiles = e.target.files;
+    // console.log(selectedFiles);
+    // this.props.cbFn(selectedFiles);
+    const selectedFile = e.target.files[0];
+    const fileReader = new FileReader();
+
+    fileReader.readAsText(selectedFile);
+    fileReader.onload = e => {
+      const result = JSON.parse(e.target.result);
+      console.log(result);
+      this.props.cbFn(result);
+    };
+  };
 
   render() {
     return (
       <div>
-        <p className="attach-text">Attach images:</p>
-        <input
-          type='file'
-          onChange={this.handleSelectedFiles}
-          className="attach-file"
-          multiple
-        />
+        <p className="attach-text">Attach Geo JSON file:</p>
+        <input type="file" onChange={this.handleSelectedFile} className="attach-file" />
       </div>
-    )
+    );
   }
 }
 
-export default InputImage
+export default InputImage;
