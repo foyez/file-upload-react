@@ -134,12 +134,18 @@ class App extends React.Component {
 
       data.append("geometry_id", this.state.roadId);
       data.append("road_name", this.state.roadName);
-      data.append("scenes[]", imgJSON.scenes);
+      // imgJSON.scenes.forEach((scene, i) => {
+      //   data.append("scene.id", scene.id);
+      // });
+      data.append("scenes", JSON.stringify(imgJSON.scenes));
+      const test = JSON.stringify(imgJSON.scenes);
+      console.log(JSON.parse(test));
       // console.log(imgJSON.scenes);
 
       // Display the key/value pairs
       for (var pair of data.entries()) {
         console.log(pair[0] + ", " + pair[1]);
+        // console.log(JSON.parse(pair[1]));
       }
 
       axios
