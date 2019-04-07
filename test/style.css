@@ -1,0 +1,46 @@
+input[type="file"] {
+  width: 98%;
+  height: 180px;
+}
+
+label[for="file"] {
+  width: 98%;
+  height: 180px;
+}
+
+.area {
+  display: block;
+  border: 5px dotted #ccc;
+  text-align: center;
+}
+
+.area:after {
+  display: block;
+  border: none;
+  white-space: pre;
+  content: "Drop your files or folders here!\aOr click to select files folders";
+  position: relative;
+  left: 0%;
+  top: -75px;
+  text-align: center;
+}
+
+.drag {
+  border: 5px dotted green;
+  background-color: yellow;
+}
+
+#result ul {
+  list-style: none;
+  margin-top: 20px;
+}
+
+#result ul li {
+  border-bottom: 1px solid #ccc;
+  margin-bottom: 10px;
+}
+
+#result li span {
+  font-weight: bold;
+  color: navy;
+}

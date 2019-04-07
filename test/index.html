@@ -1,33 +1,41 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
   <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <meta http-equiv="X-UA-Compatible" content="ie=edge" />
-    <title>Document</title>
+    <link rel="stylesheet" href="style.css" />
   </head>
+
   <body>
-    <input
-      id="fileInput"
-      type="file"
-      multiple
-      directory
-      ondragover="alertLength(event);"
-      onchange="handleChangeEvent(event);"
-    />
+    <div>
+      <select id="areas" class="dropdown" required>
+        <option disabled selected>Select An Area</option>
+      </select>
+    </div>
+    <div>
+      <select id="roads" onchange="handleSelectedRoad(this)" class="dropdown" required>
+        <option disabled selected>Select A Road</option>
+      </select>
+    </div>
+    <div>
+      <p class="attach-text">Attach Image JSON file:</p>
+      <input type="file" id="imgInput" class="attach-file" />
+    </div>
+    <div>
+      <p class="attach-text">Attach Geo JSON file:</p>
+      <input type="file" id="geoInput" class="attach-file" />
+    </div>
 
-    <script type="text/javascript">
-      function handleChangeEvent(e) {
-        // change event fires on input element
-        var input = document.getElementById("fileInput");
+    <button id="upload" class="upload-btn">
+      Upload
+    </button>
+    <span id="loading" class="percentage"> {Math.round(this.state.loaded, 2)} %</span>
+    <label id="dropArea" class="area">
+      <input id="file" type="file" directory allowdirs webkitdirectory />
+    </label>
+    <output id="result">
+      <ul></ul>
+    </output>
 
-        if ("getFilesAndDirectories" in input) {
-          input.getFilesAndDirectories().then(function(filesAndDirs) {
-            // iterate through each item
-            // see drag and drop example below for more details
-          });
-        }
-      }
-    </script>
+    <script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+    <script src="script.js"></script>
   </body>
 </html>

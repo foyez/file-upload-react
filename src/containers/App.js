@@ -3,11 +3,12 @@ import axios from "axios";
 
 import DropDownArea from "../components/dropdown_area";
 import DropDownRoad from "../components/dropdown_road";
-import InputJson from "../components/input_json";
-import InputImage from "../components/input_image";
+import InputImgJSON from "../components/InputImgJSON";
+import InputGeoJSON from "../components/InputGeoJSON";
 
 // const endpoint = 'http://192.168.0.112/api/streetview'
-const endpoint = "https://api.barikoi.xyz:8080/api/streetview";
+// const endpoint = "https://api.barikoi.xyz:8080/api/streetview";
+const endpoint = "http://192.168.0.112/api/streetviewNew";
 
 class App extends React.Component {
   constructor() {
@@ -27,17 +28,23 @@ class App extends React.Component {
   }
 
   componentDidMount() {
-    this.callAreas();
-  }
-
-  callAreas = () => {
+    // this.callAreas();
     axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
       const areas = res.data;
       this.setState({
-        areas: areas
+        areas
       });
     });
-  };
+  }
+
+  // callAreas = () => {
+  //   axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
+  //     const areas = res.data;
+  //     this.setState({
+  //       areas: areas
+  //     });
+  //   });
+  // };
 
   callRoads = areaId => {
     axios.get(`https://map.barikoi.xyz:8070/api/area/get/road/${areaId}`).then(res => {
@@ -54,22 +61,22 @@ class App extends React.Component {
 
       console.log(roads);
       this.setState({
-        roads: roads,
-        areaId: areaId
+        roads,
+        areaId
       });
     });
   };
 
   callUploadGeoId = (roadId, roadName) => {
     this.setState({
-      roadId: roadId,
-      roadName: roadName
+      roadId,
+      roadName
     });
   };
 
   handleImgJSON = imgJSON => {
     this.setState({
-      imgJSON: imgJSON
+      imgJSON
       // roadName: imgJSON.name,
     });
     // console.log(imgJSON);
@@ -78,7 +85,7 @@ class App extends React.Component {
 
   handleGeoJSON = geoJSON => {
     this.setState({
-      geoJSON: geoJSON,
+      geoJSON,
       loaded: 0
     });
   };
@@ -107,48 +114,63 @@ class App extends React.Component {
     // console.log(this.state.geoJSON);
     // const json = this.state.json;
     // const images = this.state.geoJSON;
-    // const data = new FormData();
+    const data = new FormData();
+    // let scenes;
     // // console.log(typeof(images))
     // console.log(json);
     // console.log(images);
     // console.log(this.state.roadName);
-    // if (json !== null && images !== null) {
-    //   json.data.forEach((element, i) => {
-    //     data.append("imageLink[]", images[i], images[i].name);
-    //     data.append("longitude[]", json.data[i].longitude);
-    //     data.append("latitude[]", json.data[i].latitude);
-    //     data.append("geometry_id[]", this.state.roadId);
-    //     data.append("road_name[]", this.state.roadName);
-    //   });
-    //   axios
-    //     .post(endpoint, data, {
-    //       onUploadProgress: ProgressEvent => {
-    //         this.setState({
-    //           loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-    //           message: ""
-    //         });
-    //       }
-    //     })
-    //     .then(res => {
-    //       console.log(res.statusText);
-    //       if (res.statusText === "OK") {
-    //         this.setState({
-    //           message: "Your files are uploaded successfully :)"
-    //         });
-    //       }
-    //     })
-    //     .catch(err => {
-    //       this.setState({
-    //         message: err.message, // 'Something is wrong :('
-    //         loaded: 0
-    //       });
-    //       console.log(err);
-    //     });
-    // } else {
-    //   this.setState({
-    //     message: "Please select the required options."
-    //   });
-    // }
+    if (imgJSON !== null && geoJSON !== null) {
+      // imgJSON.scenes.forEach((scene, i) => {
+      //   // data.append("imageLink[]", images[i], images[i].name);
+      //   data.append("id", scene.id);
+      //   data.append("longitude", scene.longitude);
+      //   data.append("latitude", scene.latitude);
+      //   data.append("levels[]", scene.levels);
+      //   data.append("faceSize", scene.faceSize);
+      //   data.append("initialViewParameters", scene.initialViewParameters);
+      //   data.append("linkHotspots[]", scene.linkHotspots);
+      // });
+
+      data.append("geometry_id", this.state.roadId);
+      data.append("road_name", this.state.roadName);
+      data.append("scenes[]", imgJSON.scenes);
+      // console.log(imgJSON.scenes);
+
+      // Display the key/value pairs
+      for (var pair of data.entries()) {
+        console.log(pair[0] + ", " + pair[1]);
+      }
+
+      axios
+        .post(endpoint, data, {
+          onUploadProgress: ProgressEvent => {
+            this.setState({
+              loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
+              message: ""
+            });
+          }
+        })
+        .then(res => {
+          console.log(res.statusText);
+          if (res.statusText === "OK") {
+            this.setState({
+              message: "Your files are uploaded successfully :)"
+            });
+          }
+        })
+        .catch(err => {
+          this.setState({
+            message: err.message, // 'Something is wrong :('
+            loaded: 0
+          });
+          console.log(err);
+        });
+    } else {
+      this.setState({
+        message: "Please select the required options."
+      });
+    }
   };
 
   render() {
@@ -159,8 +181,8 @@ class App extends React.Component {
         <span className="message">{this.state.message}</span>
         <DropDownArea areas={this.state.areas} defaultOption="Select an Area" cbFn={this.callRoads} />
         <DropDownRoad roads={this.state.roads} defaultOption="Select a Road" cbFn={this.callUploadGeoId} />
-        <InputJson cbFn={this.handleImgJSON} />
-        <InputImage cbFn={this.handleGeoJSON} />
+        <InputImgJSON cbFn={this.handleImgJSON} />
+        <InputGeoJSON cbFn={this.handleGeoJSON} />
         <button disabled={this.state.loaded !== 0} onClick={this.handleUpload} className="upload-btn">
           Upload
         </button>
