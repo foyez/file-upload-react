@@ -13,6 +13,7 @@ let selectedRoadId;
 let selectedRoadName;
 let imgJSON;
 let geoJSON;
+let message;
 var webkitResult = [];
 
 axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
@@ -322,6 +323,25 @@ function handleUpload() {
     for (var pair of data.entries()) {
       console.log(pair[0] + ", " + pair[1]);
     }
+
+    axios
+      .post(endpoint, data, {
+        onUploadProgress: ProgressEvent => {
+          loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100;
+          message: "";
+        }
+      })
+      .then(res => {
+        console.log(res.statusText);
+        if (res.statusText === "OK") {
+          message: "Your files are uploaded successfully :)";
+        }
+      })
+      .catch(err => {
+        message: err.message;
+        loaded: 0;
+        console.log(err);
+      });
   }
 }
 
