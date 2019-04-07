@@ -23,14 +23,14 @@
       <p class="attach-text">Attach Geo JSON file:</p>
       <input type="file" id="geoInput" class="attach-file" />
     </div>
-
+    <label id="dropArea" class="area">
+      <input id="file" type="file" directory allowdirs webkitdirectory />
+    </label>
     <button id="upload" class="upload-btn">
       Upload
     </button>
     <span id="loading" class="percentage"> {Math.round(this.state.loaded, 2)} %</span>
-    <label id="dropArea" class="area">
-      <input id="file" type="file" directory allowdirs webkitdirectory />
-    </label>
+
     <output id="result">
       <ul></ul>
     </output>

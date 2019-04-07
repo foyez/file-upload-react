@@ -13,6 +13,7 @@ let selectedRoadId;
 let selectedRoadName;
 let imgJSON;
 let geoJSON;
+var webkitResult = [];
 
 axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
   const areas = res.data;
@@ -75,16 +76,6 @@ function handleGeoJSON(event) {
   };
 }
 
-function handleUpload() {
-  imgJSON.scenes.forEach((scene, i) => {
-    scene.latitude = geoJSON.data[i].latitude;
-    scene.longitude = geoJSON.data[i].longitude;
-  });
-  imgJSON.geometry_id = selectedRoadId;
-
-  console.log(imgJSON);
-}
-
 function dragHandler(event) {
   event.stopPropagation();
   event.preventDefault();
@@ -92,7 +83,7 @@ function dragHandler(event) {
 }
 
 function filesDroped(event) {
-  var webkitResult = [];
+  // var webkitResult = [];
   var mozResult = [];
   var files;
   console.log(event);
@@ -308,6 +299,32 @@ function filesDroped(event) {
     // console.log(files);
   }
 }
+
+function handleUpload() {
+  imgJSON.scenes.forEach((scene, i) => {
+    scene.latitude = geoJSON.data[i].latitude;
+    scene.longitude = geoJSON.data[i].longitude;
+  });
+  imgJSON.geometry_id = selectedRoadId;
+
+  console.log(imgJSON);
+  const data = new FormData();
+
+  if (imgJSON !== null && geoJSON !== null) {
+    data.append("geometry_id", selectedRoadId);
+    data.append("road_name", selectedRoadName);
+    data.append("scenes", JSON.stringify(imgJSON.scenes));
+    // data.append("imageFolder", webkitResult);
+    webkitResult.forEach(file => {
+      data.append("imgFolder[]", file, file.name);
+    });
+
+    for (var pair of data.entries()) {
+      console.log(pair[0] + ", " + pair[1]);
+    }
+  }
+}
+
 areaEl.addEventListener("change", handleSelectedArea);
 // roadEl.addEventListener("change", handleSelectedRoad);
 imgInputEl.addEventListener("change", handleImgJSON);

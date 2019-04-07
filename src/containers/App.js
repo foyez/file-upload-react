@@ -91,13 +91,13 @@ class App extends React.Component {
   };
 
   handleUpload = () => {
-    this.state.imgJSON.scenes.forEach(scene => {
-      // scene.geometry_id = this.state.roadId;
-      this.state.geoJSON.data.forEach(point => {
-        scene.latitude = point.latitude;
-        scene.longitude = point.longitude;
-      });
-    });
+    // this.state.imgJSON.scenes.forEach(scene => {
+    //   // scene.geometry_id = this.state.roadId;
+    //   this.state.geoJSON.data.forEach(point => {
+    //     scene.latitude = point.latitude;
+    //     scene.longitude = point.longitude;
+    //   });
+    // });
 
     const imgJSON = { ...this.state.imgJSON };
     const geoJSON = { ...this.state.geoJSON };
@@ -138,8 +138,6 @@ class App extends React.Component {
       //   data.append("scene.id", scene.id);
       // });
       data.append("scenes", JSON.stringify(imgJSON.scenes));
-      const test = JSON.stringify(imgJSON.scenes);
-      console.log(JSON.parse(test));
       // console.log(imgJSON.scenes);
 
       // Display the key/value pairs
