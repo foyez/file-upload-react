@@ -8,7 +8,8 @@ import InputGeoJSON from "../components/InputGeoJSON";
 
 // const endpoint = 'http://192.168.0.112/api/streetview'
 // const endpoint = "https://api.barikoi.xyz:8080/api/streetview";
-const endpoint = "http://192.168.0.112/api/streetviewNew";
+// const endpoint = "http://192.168.0.112/api/streetviewNew";
+const endpoint = "https://api.barikoi.xyz:8080/api/streetviewNew";
 
 class App extends React.Component {
   constructor() {

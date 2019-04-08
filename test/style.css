@@ -25,10 +25,11 @@ body {
   /* top: 40%; */
   left: 50%;
   transform: translateX(-50%);
-  margin-top: 20vh;
+  margin-top: 5vh;
   /* background-color: #ededed; */
   background-color: darkgrey;
   padding: 5rem;
+  width: 37rem;
 }
 
 .dropdown {

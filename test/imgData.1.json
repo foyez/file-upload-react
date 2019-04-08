@@ -1,0 +1,453 @@
+{
+  "scenes": [
+    {
+      "id": "0-mazar_road-1",
+      "latitude": 23.79824722,
+      "longitude": 90.3526698,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": 3.089826384111574,
+        "pitch": 0.27922511459411226,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 2.6801264661372883,
+          "pitch": 0.34360968876260145,
+          "rotation": 0,
+          "target": "1-mazar_road-2"
+        }
+      ]
+    },
+    {
+      "id": "1-mazar_road-2",
+      "name": "mazar_road (2)",
+      "latitude": 23.79752488,
+      "longitude": 90.3515046,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.9529837771968843,
+        "pitch": 0.5420639945540735,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 3.011513726677382,
+          "pitch": 0.4961107363617572,
+          "rotation": 0,
+          "target": "2-mazar_road-3"
+        },
+        {
+          "yaw": 0.39992630047780864,
+          "pitch": 0.2259631674794349,
+          "rotation": 0,
+          "target": "0-mazar_road-1"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "2-mazar_road-3",
+      "name": "mazar_road (3)",
+      "latitude": 23.79691818,
+      "longitude": 90.35037116,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.865972727637029,
+        "pitch": 0.33116502950043625,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 0.284943828322179,
+          "pitch": 0.4182598687114698,
+          "rotation": 0,
+          "target": "1-mazar_road-2"
+        },
+        {
+          "yaw": 3.004342522269112,
+          "pitch": 0.2002051200464372,
+          "rotation": 0,
+          "target": "3-mazar_road-4"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "3-mazar_road-4",
+      "name": "mazar_road (4)",
+      "latitude": 23.79514452,
+      "longitude": 90.34924167,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.813013020000941,
+        "pitch": 0.5839450427028829,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": -0.017215536550867938,
+          "pitch": 0.3285003598340275,
+          "rotation": 0,
+          "target": "2-mazar_road-3"
+        },
+        {
+          "yaw": 2.9225634235787323,
+          "pitch": 0.25197895863262154,
+          "rotation": 0,
+          "target": "4-mazar_road-5"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "4-mazar_road-5",
+      "name": "mazar_road (5)",
+      "latitude": 23.7935929,
+      "longitude": 90.34885585,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": 3.103972082419583,
+        "pitch": 0.3215057757184532,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 0.05160576658394689,
+          "pitch": 0.2231834933522805,
+          "rotation": 0,
+          "target": "3-mazar_road-4"
+        },
+        {
+          "yaw": 2.9888723921156837,
+          "pitch": 0.3058217483172321,
+          "rotation": 0,
+          "target": "5-mazar_road-6"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "5-mazar_road-6",
+      "name": "mazar_road (6)",
+      "latitude": 23.79111618,
+      "longitude": 90.34850925,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.9279230696805314,
+        "pitch": 0.4237693446957014,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 0.13011159466899969,
+          "pitch": 0.3198207770100723,
+          "rotation": 0,
+          "target": "4-mazar_road-5"
+        },
+        {
+          "yaw": 2.9357901320113973,
+          "pitch": 0.3041728681413094,
+          "rotation": 0,
+          "target": "6-mazar_road-7"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "6-mazar_road-7",
+      "name": "mazar_road (7)",
+      "latitude": 23.78960212,
+      "longitude": 90.34827233,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.599181035630755,
+        "pitch": 0.41077133703003454,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 0.297378854064533,
+          "pitch": 0.3298876130234678,
+          "rotation": 0,
+          "target": "5-mazar_road-6"
+        },
+        {
+          "yaw": 3.1337130338620955,
+          "pitch": 0.2976303383174894,
+          "rotation": 0,
+          "target": "7-mazar_road-8"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "7-mazar_road-8",
+      "name": "mazar_road (8)",
+      "latitude": 23.787207940000002,
+      "longitude": 90.34786983,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.825455270607863,
+        "pitch": 0.2259004483159366,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 0.19381240631481056,
+          "pitch": 0.32585215140379553,
+          "rotation": 0,
+          "target": "6-mazar_road-7"
+        },
+        {
+          "yaw": -2.825455270607863,
+          "pitch": 0.2259004483159366,
+          "rotation": 0,
+          "target": "8-mazar_road-9"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "8-mazar_road-9",
+      "name": "mazar_road (9)",
+      "latitude": 23.78594479,
+      "longitude": 90.34769725,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.952707210594289,
+        "pitch": 0.3625698406466249,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 0.28156495760260114,
+          "pitch": 0.24940125561283466,
+          "rotation": 0,
+          "target": "7-mazar_road-8"
+        },
+        {
+          "yaw": -2.8147288052020176,
+          "pitch": 0.3389066516745203,
+          "rotation": 0,
+          "target": "9-mazar_road-10"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "9-mazar_road-10",
+      "name": "mazar_road (10)",
+      "latitude": 23.7836332,
+      "longitude": 90.34732649,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.994203103138588,
+        "pitch": 0.021428780279865833,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 0.1705010933619917,
+          "pitch": 0.38962361997164585,
+          "rotation": 0,
+          "target": "8-mazar_road-9"
+        },
+        {
+          "yaw": -2.846794771434027,
+          "pitch": 0.13985765119686278,
+          "rotation": 0,
+          "target": "10-mazar_road-11"
+        }
+      ],
+      "infoHotspots": []
+    },
+    {
+      "id": "10-mazar_road-11",
+      "name": "mazar_road (11)",
+      "latitude": 23.78315352,
+      "longitude": 90.3472653,
+      "levels": [
+        {
+          "tileSize": 256,
+          "size": 256,
+          "fallbackOnly": true
+        },
+        {
+          "tileSize": 512,
+          "size": 512
+        },
+        {
+          "tileSize": 512,
+          "size": 1024
+        }
+      ],
+      "faceSize": 864,
+      "initialViewParameters": {
+        "yaw": -2.820734556977115,
+        "pitch": 0.04376300198002525,
+        "fov": 1.3333127936580627
+      },
+      "linkHotspots": [
+        {
+          "yaw": 0.24626904419230655,
+          "pitch": 0.2264756515900359,
+          "rotation": 0,
+          "target": "9-mazar_road-10"
+        }
+      ],
+      "infoHotspots": []
+    }
+  ],
+  "name": "Mazar Road"
+}

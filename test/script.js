@@ -15,6 +15,8 @@ let imgJSON;
 let geoJSON;
 let message;
 var webkitResult = [];
+// var endpoint = "http://192.168.0.112/api/streetviewNew";
+var endpoint = "http://192.168.0.112/api/streetviewNew/folder";
 
 axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
   const areas = res.data;
@@ -312,9 +314,9 @@ function handleUpload() {
   const data = new FormData();
 
   if (imgJSON !== null && geoJSON !== null) {
-    data.append("geometry_id", selectedRoadId);
-    data.append("road_name", selectedRoadName);
-    data.append("scenes", JSON.stringify(imgJSON.scenes));
+    // data.append("geometry_id", selectedRoadId);
+    // data.append("road_name", selectedRoadName);
+    // data.append("scenes", JSON.stringify(imgJSON.scenes));
     // data.append("imageFolder", webkitResult);
     webkitResult.forEach(file => {
       data.append("imgFolder[]", file, file.name);
