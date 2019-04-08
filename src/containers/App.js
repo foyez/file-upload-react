@@ -5,6 +5,7 @@ import DropDownArea from "../components/dropdown_area";
 import DropDownRoad from "../components/dropdown_road";
 import InputImgJSON from "../components/InputImgJSON";
 import InputGeoJSON from "../components/InputGeoJSON";
+import AttachZip from "../components/AttachZip";
 
 // const endpoint = 'http://192.168.0.112/api/streetview'
 // const endpoint = "https://api.barikoi.xyz:8080/api/streetview";
@@ -22,6 +23,7 @@ class App extends React.Component {
       roadName: "",
       imgJSON: null,
       geoJSON: null,
+      zipFile: null,
       loaded: 0,
       message: "",
       validForm: false
@@ -91,6 +93,10 @@ class App extends React.Component {
     });
   };
 
+  handleZipFile = zipFile => {
+    this.setState({ zipFile });
+  };
+
   handleUpload = () => {
     // this.state.imgJSON.scenes.forEach(scene => {
     //   // scene.geometry_id = this.state.roadId;
@@ -135,11 +141,8 @@ class App extends React.Component {
 
       data.append("geometry_id", this.state.roadId);
       data.append("road_name", this.state.roadName);
-      // imgJSON.scenes.forEach((scene, i) => {
-      //   data.append("scene.id", scene.id);
-      // });
       data.append("scenes", JSON.stringify(imgJSON.scenes));
-      // console.log(imgJSON.scenes);
+      data.append("imgFolders", this.state.zipFile);
 
       // Display the key/value pairs
       for (var pair of data.entries()) {
@@ -147,30 +150,30 @@ class App extends React.Component {
         // console.log(JSON.parse(pair[1]));
       }
 
-      axios
-        .post(endpoint, data, {
-          onUploadProgress: ProgressEvent => {
-            this.setState({
-              loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-              message: ""
-            });
-          }
-        })
-        .then(res => {
-          console.log(res.statusText);
-          if (res.statusText === "OK") {
-            this.setState({
-              message: "Your files are uploaded successfully :)"
-            });
-          }
-        })
-        .catch(err => {
-          this.setState({
-            message: err.message, // 'Something is wrong :('
-            loaded: 0
-          });
-          console.log(err);
-        });
+      // axios
+      //   .post(endpoint, data, {
+      //     onUploadProgress: ProgressEvent => {
+      //       this.setState({
+      //         loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
+      //         message: ""
+      //       });
+      //     }
+      //   })
+      //   .then(res => {
+      //     console.log(res.statusText);
+      //     if (res.statusText === "OK") {
+      //       this.setState({
+      //         message: "Your files are uploaded successfully :)"
+      //       });
+      //     }
+      //   })
+      //   .catch(err => {
+      //     this.setState({
+      //       message: err.message, // 'Something is wrong :('
+      //       loaded: 0
+      //     });
+      //     console.log(err);
+      //   });
     } else {
       this.setState({
         message: "Please select the required options."
@@ -188,6 +191,7 @@ class App extends React.Component {
         <DropDownRoad roads={this.state.roads} defaultOption="Select a Road" cbFn={this.callUploadGeoId} />
         <InputImgJSON cbFn={this.handleImgJSON} />
         <InputGeoJSON cbFn={this.handleGeoJSON} />
+        <AttachZip cbFn={this.handleZipFile} />
         <button disabled={this.state.loaded !== 0} onClick={this.handleUpload} className="upload-btn">
           Upload
         </button>
