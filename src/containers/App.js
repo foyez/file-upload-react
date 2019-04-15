@@ -11,6 +11,7 @@ import AttachZip from "../components/AttachZip";
 // const endpoint = "https://api.barikoi.xyz:8080/api/streetview";
 // const endpoint = "http://192.168.0.112/api/streetviewNew";
 const endpoint = "https://api.barikoi.xyz:8080/api/streetviewNew";
+// const endpoint = "https://api.barikoi.xyz:8080/api/zip/save";
 
 class App extends React.Component {
   constructor() {
@@ -141,8 +142,12 @@ class App extends React.Component {
 
       data.append("geometry_id", this.state.roadId);
       data.append("road_name", this.state.roadName);
+      data.append("defaultLinkHotspots", JSON.stringify(imgJSON.defaultLinkHotspots));
       data.append("scenes", JSON.stringify(imgJSON.scenes));
-      data.append("imgFolders", this.state.zipFile);
+      if (this.state.zipFile) {
+        data.append("zipFile", this.state.zipFile[0], this.state.zipFile[0].name);
+      }
+      // console.log(this.state.zipFile[0], this.state.zipFile[0].name);
 
       // Display the key/value pairs
       for (var pair of data.entries()) {
@@ -150,30 +155,30 @@ class App extends React.Component {
         // console.log(JSON.parse(pair[1]));
       }
 
-      // axios
-      //   .post(endpoint, data, {
-      //     onUploadProgress: ProgressEvent => {
-      //       this.setState({
-      //         loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-      //         message: ""
-      //       });
-      //     }
-      //   })
-      //   .then(res => {
-      //     console.log(res.statusText);
-      //     if (res.statusText === "OK") {
-      //       this.setState({
-      //         message: "Your files are uploaded successfully :)"
-      //       });
-      //     }
-      //   })
-      //   .catch(err => {
-      //     this.setState({
-      //       message: err.message, // 'Something is wrong :('
-      //       loaded: 0
-      //     });
-      //     console.log(err);
-      //   });
+      axios
+        .post(endpoint, data, {
+          onUploadProgress: ProgressEvent => {
+            this.setState({
+              loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
+              message: ""
+            });
+          }
+        })
+        .then(res => {
+          console.log(res.statusText);
+          if (res.statusText === "OK") {
+            this.setState({
+              message: "Your files are uploaded successfully :)"
+            });
+          }
+        })
+        .catch(err => {
+          this.setState({
+            message: err.message, // 'Something is wrong :('
+            loaded: 0
+          });
+          console.log(err);
+        });
     } else {
       this.setState({
         message: "Please select the required options."
