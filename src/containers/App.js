@@ -162,6 +162,7 @@ class App extends React.Component {
               loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
               message: ""
             });
+            document.title = `(${Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100, 2)}%) Image Uploader`;
           }
         })
         .then(res => {
