@@ -10,7 +10,7 @@ const InputImage = props => {
   return (
     <div>
       <p className="attach-text">Attach Zip File(s):</p>
-      <input type="file" onChange={handleSelectedFiles} className="attach-file" multiple />
+      <input type="file" accept=".zip" onChange={handleSelectedFiles} className="attach-file" multiple />
     </div>
   );
 };

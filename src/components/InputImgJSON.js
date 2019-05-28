@@ -18,7 +18,7 @@ const InputImgJSON = props => {
   return (
     <div>
       <p className="attach-text">Attach Image JSON file:</p>
-      <input type="file" onChange={handleSelectedFile} className="attach-file" />
+      <input type="file" accept=".json" onChange={handleSelectedFile} className="attach-file" />
     </div>
   );
 };
