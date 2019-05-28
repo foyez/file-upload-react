@@ -68,13 +68,17 @@ select option {
   margin-bottom: 1rem;
 }
 
+.btn-box {
+  display: flex;
+  justify-content: space-between;
+}
+
 .upload-btn {
   border-style: none;
   background-color: rgb(42, 113, 180);
   padding: 0.8rem;
   color: #fff;
   cursor: pointer;
-  margin-right: 15rem;
 }
 
 .upload-btn:disabled {
@@ -90,8 +94,9 @@ select option {
 }
 
 .message {
-  color: red;
+  color: crimson;
   font-size: 1.5rem;
+  font-weight: bold;
 }
 
 #file {

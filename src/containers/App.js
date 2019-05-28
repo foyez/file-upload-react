@@ -14,22 +14,19 @@ const endpoint = "https://api.barikoi.xyz:8080/api/streetviewNew";
 // const endpoint = "https://api.barikoi.xyz:8080/api/zip/save";
 
 class App extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      areas: [],
-      roads: [],
-      areaId: null,
-      roadId: null,
-      roadName: "",
-      imgJSON: null,
-      geoJSON: null,
-      zipFile: null,
-      loaded: 0,
-      message: "",
-      validForm: false
-    };
-  }
+  state = {
+    areas: [],
+    roads: [],
+    areaId: null,
+    roadId: null,
+    roadName: "",
+    imgJSON: null,
+    geoJSON: null,
+    zipFile: null,
+    loaded: 0,
+    message: "",
+    validForm: false
+  };
 
   componentDidMount() {
     // this.callAreas();
@@ -40,15 +37,6 @@ class App extends React.Component {
       });
     });
   }
-
-  // callAreas = () => {
-  //   axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
-  //     const areas = res.data;
-  //     this.setState({
-  //       areas: areas
-  //     });
-  //   });
-  // };
 
   callRoads = areaId => {
     axios.get(`https://map.barikoi.xyz:8070/api/area/get/road/${areaId}`).then(res => {
@@ -83,8 +71,6 @@ class App extends React.Component {
       imgJSON
       // roadName: imgJSON.name,
     });
-    // console.log(imgJSON);
-    // console.log('Road Name: ', this.state.roadName)
   };
 
   handleGeoJSON = geoJSON => {
@@ -99,16 +85,43 @@ class App extends React.Component {
   };
 
   handleUpload = () => {
-    // this.state.imgJSON.scenes.forEach(scene => {
-    //   // scene.geometry_id = this.state.roadId;
-    //   this.state.geoJSON.data.forEach(point => {
-    //     scene.latitude = point.latitude;
-    //     scene.longitude = point.longitude;
-    //   });
-    // });
+    if (this.state.imgJSON === null || this.state.geoJSON === null) {
+      this.setState({ message: "Please attach required files." });
+      return;
+    }
+
+    if (this.state.loaded === 100) {
+      this.setState({
+        // areas: [],
+        // roads: [],
+        areaId: null,
+        roadId: null,
+        roadName: "",
+        imgJSON: null,
+        geoJSON: null,
+        zipFile: null,
+        loaded: 0,
+        message: ""
+      });
+      document.title = `Image Uploader`;
+      return;
+    }
 
     const imgJSON = { ...this.state.imgJSON };
     const geoJSON = { ...this.state.geoJSON };
+
+    console.log(imgJSON);
+    if (imgJSON.scenes.length !== geoJSON.data.length) {
+      this.setState({
+        message: `Image JSON (${imgJSON.scenes.length}) & GEO JSON (${geoJSON.data.length}) is not same length`
+      });
+      return;
+    } else if (!imgJSON.defaultLinkHotspots) {
+      this.setState({
+        message: "Please add defaultLinkHotspots..."
+      });
+      return;
+    }
 
     imgJSON.scenes.forEach((scene, i) => {
       scene.latitude = geoJSON.data[i].latitude;
@@ -118,28 +131,9 @@ class App extends React.Component {
 
     console.log(imgJSON);
 
-    // console.log(this.state.json);
-    // console.log(this.state.geoJSON);
-    // const json = this.state.json;
-    // const images = this.state.geoJSON;
     const data = new FormData();
-    // let scenes;
-    // // console.log(typeof(images))
-    // console.log(json);
-    // console.log(images);
-    // console.log(this.state.roadName);
-    if (imgJSON !== null && geoJSON !== null) {
-      // imgJSON.scenes.forEach((scene, i) => {
-      //   // data.append("imageLink[]", images[i], images[i].name);
-      //   data.append("id", scene.id);
-      //   data.append("longitude", scene.longitude);
-      //   data.append("latitude", scene.latitude);
-      //   data.append("levels[]", scene.levels);
-      //   data.append("faceSize", scene.faceSize);
-      //   data.append("initialViewParameters", scene.initialViewParameters);
-      //   data.append("linkHotspots[]", scene.linkHotspots);
-      // });
 
+    if (imgJSON !== null && geoJSON !== null) {
       data.append("geometry_id", this.state.roadId);
       data.append("road_name", this.state.roadName);
       data.append("defaultLinkHotspots", JSON.stringify(imgJSON.defaultLinkHotspots));
@@ -166,10 +160,9 @@ class App extends React.Component {
           }
         })
         .then(res => {
-          console.log(res.statusText);
           if (res.statusText === "OK") {
             this.setState({
-              message: "Your files are uploaded successfully :)"
+              message: res.data.message
             });
           }
         })
@@ -198,10 +191,15 @@ class App extends React.Component {
         <InputImgJSON cbFn={this.handleImgJSON} />
         <InputGeoJSON cbFn={this.handleGeoJSON} />
         <AttachZip cbFn={this.handleZipFile} />
-        <button disabled={this.state.loaded !== 0} onClick={this.handleUpload} className="upload-btn">
-          Upload
-        </button>
-        <span className="percentage"> {Math.round(this.state.loaded, 2)} %</span>
+        <div className="btn-box">
+          <button
+            disabled={this.state.loaded !== 0 && this.state.loaded !== 100}
+            onClick={this.handleUpload}
+            className="upload-btn">
+            {this.state.loaded === 100 ? "Upload again" : "Upload"}
+          </button>
+          <span className="percentage"> {Math.round(this.state.loaded, 2)} %</span>
+        </div>
       </div>
     ) : (
       <div>Hello</div>

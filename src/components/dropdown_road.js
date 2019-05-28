@@ -1,33 +1,29 @@
-import React from 'react'
+import React from "react";
 
-class DropDownRoad extends React.Component {
+const DropDownRoad = props => {
+  const handleSelectedRoad = e => {
+    const selectedRoad = e.target.value;
+    const selectedIndex = e.nativeEvent.target.selectedIndex;
+    const selectedRoadName = e.nativeEvent.target[selectedIndex].text;
+    console.log(selectedRoad);
+    console.log(selectedRoadName);
+    props.cbFn(selectedRoad, selectedRoadName);
+  };
 
-  handleSelectedRoad = (e) => {
-    const selectedRoad = e.target.value
-    const selectedIndex = e.nativeEvent.target.selectedIndex
-    const selectedRoadName = e.nativeEvent.target[selectedIndex].text
-    console.log(selectedRoad)
-    console.log(selectedRoadName)
-    this.props.cbFn(selectedRoad, selectedRoadName)
-  }
-
-  render() {
-    return (
+  return (
+    <div>
       <div>
-        <div>
-          <select 
-            defaultValue={this.props.defaultOption}
-            onChange={this.handleSelectedRoad}
-            className="dropdown"
-            required
-          >
-            <option disabled>{this.props.defaultOption}</option>
-            { this.props.roads.map(road => <option key={road.id} value={road.id}>{road.road_name_number}</option>)}
-          </select>
-        </div>
+        <select defaultValue={props.defaultOption} onChange={handleSelectedRoad} className="dropdown" required>
+          <option disabled>{props.defaultOption}</option>
+          {props.roads.map(road => (
+            <option key={road.id} value={road.id}>
+              {road.road_name_number}
+            </option>
+          ))}
+        </select>
       </div>
-    )
-  }
-}
+    </div>
+  );
+};
 
-export default DropDownRoad
+export default DropDownRoad;
