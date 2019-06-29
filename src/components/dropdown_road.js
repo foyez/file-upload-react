@@ -13,11 +13,11 @@ const DropDownRoad = props => {
   return (
     <div>
       <div>
-        <select defaultValue={props.defaultOption} onChange={handleSelectedRoad} className="dropdown" required>
+        <select defaultValue={props.defaultOption} onChange={handleSelectedRoad} className="dropdown">
           <option disabled>{props.defaultOption}</option>
           {props.roads.map(road => (
             <option key={road.id} value={road.id}>
-              {road.road_name_number}
+              {road.road_name_number} - {road.id}
             </option>
           ))}
         </select>

@@ -10,7 +10,7 @@ const DropDownArea = props => {
   return (
     <div>
       <div>
-        <select defaultValue={props.defaultOption} onChange={handleSelectedArea} className="dropdown" required>
+        <select defaultValue={props.defaultOption} onChange={handleSelectedArea} className="dropdown">
           <option disabled>{props.defaultOption}</option>
           {props.areas.map(area => (
             <option key={area.id} value={area.id}>

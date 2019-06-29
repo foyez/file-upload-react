@@ -10,7 +10,8 @@ import AttachZip from "../components/AttachZip";
 // const endpoint = 'http://192.168.0.112/api/streetview'
 // const endpoint = "https://api.barikoi.xyz:8080/api/streetview";
 // const endpoint = "http://192.168.0.112/api/streetviewNew";
-const endpoint = "https://api.barikoi.xyz:8080/api/streetviewNew";
+// const endpoint = "https://api.barikoi.xyz:8080/api/uploadData";
+const endpoint = "https://api.barikoi.xyz:8080/api/streetview";
 // const endpoint = "https://api.barikoi.xyz:8080/api/zip/save";
 
 class App extends React.Component {
@@ -94,12 +95,12 @@ class App extends React.Component {
       this.setState({
         // areas: [],
         // roads: [],
-        areaId: null,
-        roadId: null,
-        roadName: "",
-        imgJSON: null,
-        geoJSON: null,
-        zipFile: null,
+        // areaId: null,
+        // roadId: null,
+        // roadName: "",
+        // imgJSON: null,
+        // geoJSON: null,
+        // zipFile: null,
         loaded: 0,
         message: ""
       });
@@ -110,7 +111,6 @@ class App extends React.Component {
     const imgJSON = { ...this.state.imgJSON };
     const geoJSON = { ...this.state.geoJSON };
 
-    console.log(imgJSON);
     if (imgJSON.scenes.length !== geoJSON.data.length) {
       this.setState({
         message: `Image JSON (${imgJSON.scenes.length}) & GEO JSON (${geoJSON.data.length}) is not same length`
@@ -129,8 +129,6 @@ class App extends React.Component {
     });
     imgJSON.geometry_id = this.state.roadId;
 
-    console.log(imgJSON);
-
     const data = new FormData();
 
     if (imgJSON !== null && geoJSON !== null) {
@@ -138,15 +136,17 @@ class App extends React.Component {
       data.append("road_name", this.state.roadName);
       data.append("defaultLinkHotspots", JSON.stringify(imgJSON.defaultLinkHotspots));
       data.append("scenes", JSON.stringify(imgJSON.scenes));
+
+      data.append("faceSize", imgJSON.faceSize);
+      data.append("levels", JSON.stringify(imgJSON.levels));
+
       if (this.state.zipFile) {
         data.append("zipFile", this.state.zipFile[0], this.state.zipFile[0].name);
       }
-      // console.log(this.state.zipFile[0], this.state.zipFile[0].name);
 
       // Display the key/value pairs
       for (var pair of data.entries()) {
         console.log(pair[0] + ", " + pair[1]);
-        // console.log(JSON.parse(pair[1]));
       }
 
       axios
