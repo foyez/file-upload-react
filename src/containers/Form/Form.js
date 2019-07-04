@@ -68,7 +68,8 @@ const Form = () => {
       value: "",
       validation: {
         required: true,
-        minLength: 4
+        minLength: 4,
+        maxLength: 8
       },
       valid: false,
       touched: false,
@@ -180,9 +181,18 @@ const Form = () => {
       }
     }
 
+    const returnedCheckValidity = checkValidity(e.target.value, form[inputIdentifier].validation);
+    let errorMsg = "";
+    for (let errType in returnedCheckValidity.error) {
+      if (returnedCheckValidity.error[errType]) {
+        errorMsg = returnedCheckValidity.error[errType];
+      }
+    }
+
     const updatedFormEl = updateObj(form[inputIdentifier], {
       value: e.target.value,
-      valid: checkValidity(e.target.value, form[inputIdentifier].validation),
+      valid: returnedCheckValidity.isValid,
+      error: errorMsg,
       touched: true
     });
     const updatedOrderForm = updateObj(form, {
