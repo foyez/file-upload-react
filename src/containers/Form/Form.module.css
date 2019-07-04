@@ -1,0 +1,48 @@
+.Form {
+  margin: 2rem auto;
+  width: 80%;
+  text-align: center;
+  box-shadow: 0 0.2rem 0.3rem #ccc;
+  border: 1px solid #eee;
+  padding: 1rem;
+}
+
+.Input {
+  width: 100%;
+  padding: 0.5rem 1rem;
+}
+
+.Label {
+  font-weight: bold;
+  font-size: 1.2rem;
+  display: block;
+  margin-bottom: 0.8rem;
+  text-align: left;
+}
+
+.InputEl {
+  outline: none;
+  /* border: 1px solid #ccc; */
+  background-color: #fff;
+  font: inherit;
+  /* padding: 0.6rem 1rem; */
+  display: block;
+  width: 100%;
+  /* width: 85%; */
+}
+
+.InputEl:focus {
+  outline: none;
+  background-color: #ccc;
+}
+
+.UploadProgress {
+  font-weight: bold;
+  font-size: 2rem;
+}
+
+@media only screen and (min-width: 600px) {
+  .Form {
+    width: 500px;
+  }
+}
