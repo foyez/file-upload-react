@@ -5,6 +5,13 @@ export const updateObj = (oldObj, updatedProperties) => {
   };
 };
 
+export const sanitize = s => {
+  return s
+    .replace("&", "&amp;")
+    .replace("<", "&lt;")
+    .replace(">", "&gt;");
+};
+
 export const checkValidity = (value, rules) => {
   let isValid = true;
   let error = {
@@ -17,57 +24,6 @@ export const checkValidity = (value, rules) => {
   if (!rules) {
     return true;
   }
-
-  // switch (rules) {
-  //   case rules.required:
-  //     isValid = value.trim() !== "" && isValid;
-
-  //     if (!isValid) {
-  //       const required = "This field is required.";
-  //       const updatedError = updateObj(error, { required });
-  //       error = updatedError;
-  //     }
-  //     break;
-  //   case rules.isNumber:
-  //     const pattern = /^-?[\d.]+(?:e-?\d+)?$/;
-  //     isValid = pattern.test(value) && isValid;
-
-  //     if (!isValid && error.required === "") {
-  //       const isNumber = `Field input should be number`;
-  //       const updatedError = updateObj(error, { isNumber });
-  //       error = updatedError;
-  //     }
-  //     break;
-  //   case rules.minLength:
-  //     isValid = value.length >= rules.minLength && isValid;
-
-  //     if (!isValid && error.required === "") {
-  //       const length = `Field length should be minimum ${rules.minLength}.`;
-  //       const updatedError = updateObj(error, { length });
-  //       error = updatedError;
-  //     }
-  //     break;
-
-  //   case rules.maxLength:
-  //     isValid = value.length <= rules.maxLength && isValid;
-
-  //     if (!isValid && error.required === "") {
-  //       const length = error.length
-  //         ? `Field length should be between ${rules.minLength} and ${rules.maxLength}.`
-  //         : `Field length should be maximum ${rules.maxLength}.`;
-  //       const updatedError = updateObj(error, { length });
-  //       error = updatedError;
-  //     }
-  //     break;
-  //   default:
-  //     isValid = value.trim() !== "" && isValid;
-
-  //     if (!isValid) {
-  //       const required = "This field is required.";
-  //       const updatedError = updateObj(error, { required });
-  //       error = updatedError;
-  //     }
-  // }
 
   // error messages priority
   // 1. required

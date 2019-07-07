@@ -5,7 +5,7 @@ import Select from "react-select";
 import classes from "./Form.module.css";
 import Button from "../../components/UI/Button/Button";
 import Input from "../../components/UI/Input/Input";
-import { updateObj, checkValidity } from "../../shared/utility";
+import { updateObj, checkValidity, sanitize } from "../../shared/utility";
 
 // const ENDPOINT = "https://api.barikoi.xyz:8080/api/streetview";
 const ENDPOINT = "https://api.barikoi.xyz:8080/api/streetviewnew";
