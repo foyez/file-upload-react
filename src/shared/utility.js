@@ -10,7 +10,8 @@ export const checkValidity = (value, rules) => {
   let error = {
     required: "",
     length: "",
-    isNumber: ""
+    isNumber: "",
+    isEmail: ""
   };
 
   if (!rules) {
@@ -94,6 +95,11 @@ export const checkValidity = (value, rules) => {
     }
   }
 
+  if (rules.isNumeric) {
+    const pattern = /^\d+$/;
+    isValid = pattern.test(value) && isValid;
+  }
+
   if (rules.minLength) {
     isValid = value.length >= rules.minLength && isValid;
 
@@ -119,11 +125,12 @@ export const checkValidity = (value, rules) => {
   if (rules.isEmail) {
     const pattern = /[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?/;
     isValid = pattern.test(value) && isValid;
-  }
 
-  if (rules.isNumeric) {
-    const pattern = /^\d+$/;
-    isValid = pattern.test(value) && isValid;
+    if (!isValid && error.required === "") {
+      const isEmail = "Invalid Email address";
+      const updatedError = updateObj(error, { isEmail });
+      error = updatedError;
+    }
   }
 
   return { isValid, error };

@@ -345,7 +345,7 @@ const Form = () => {
 
   return (
     <div className={classes.Form}>
-      <h2>Enter Your Data</h2>
+      <h2 className={classes.Form_h2}>Enter Your Data</h2>
       {formHTML}
     </div>
   );

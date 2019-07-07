@@ -1,2 +1,2 @@
-cd C:\Users\bk2017\Documents\barikoi\MergeFiles
+cd C:\Users\bk2017\Documents\barikoi\file-uploader
 npm start
