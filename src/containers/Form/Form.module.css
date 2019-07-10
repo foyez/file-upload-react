@@ -45,6 +45,16 @@
   font-size: 2rem;
 }
 
+.message {
+  color: whitesmoke;
+  font-size: 2rem;
+  font-weight: 100;
+  background-color: black;
+  padding: 0.5rem 2rem;
+  margin-bottom: 0.5rem;
+  display: block;
+}
+
 @media only screen and (min-width: 600px) {
   .Form {
     width: 500px;

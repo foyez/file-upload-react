@@ -13,12 +13,24 @@ const Input = props => {
   switch (props.elType) {
     case "input":
       inputEl = (
-        <input className={inputClasses.join(" ")} {...props.elConfig} value={props.value} onChange={props.changed} />
+        <input
+          className={inputClasses.join(" ")}
+          {...props.elConfig}
+          value={props.value}
+          onChange={props.changed}
+          onBlur={props.blured}
+        />
       );
       break;
     case "textarea":
       inputEl = (
-        <textarea className={inputClasses.join(" ")} {...props.elConfig} value={props.value} onChange={props.changed} />
+        <textarea
+          className={inputClasses.join(" ")}
+          {...props.elConfig}
+          value={props.value}
+          onChange={props.changed}
+          onBlur={props.blured}
+        />
       );
       break;
     case "select":
@@ -49,7 +61,13 @@ const Input = props => {
     //   break;
     default:
       inputEl = (
-        <input className={inputClasses.join(" ")} {...props.elConfig} value={props.value} onChange={props.changed} />
+        <input
+          className={inputClasses.join(" ")}
+          {...props.elConfig}
+          value={props.value}
+          onChange={props.changed}
+          onBlur={props.blured}
+        />
       );
   }
 

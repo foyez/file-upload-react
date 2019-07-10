@@ -27,6 +27,7 @@ const Form = () => {
   const [attachedRoadJSON, setAttachedRoadJSON] = useState(null);
   const [attachedZip, setAttachedZip] = useState(null);
   const [loaded, setLoaded] = useState(0);
+  const [resMessage, setResMessage] = useState("");
 
   useEffect(() => {
     axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
@@ -68,8 +69,8 @@ const Form = () => {
       value: "",
       validation: {
         required: true,
-        minLength: 4,
-        maxLength: 8
+        minLength: 4
+        // maxLength: 8
       },
       valid: false,
       touched: false,
@@ -156,6 +157,10 @@ const Form = () => {
       config: form[key]
     });
   }
+
+  const handleBlur = (e, inputIdentifier) => {
+    console.log(checkValidity(e.target.value, form[inputIdentifier].validation));
+  };
 
   const handleInputChanged = (e, inputIdentifier) => {
     if (form[inputIdentifier].elConfig.type === "file") {
@@ -267,26 +272,17 @@ const Form = () => {
         .post(ENDPOINT, data, {
           onUploadProgress: ProgressEvent => {
             setLoaded((ProgressEvent.loaded / ProgressEvent.total) * 100);
-            // this.setState({
-            //   loaded: (ProgressEvent.loaded / ProgressEvent.total) * 100,
-            //   message: ""
-            // });
             document.title = `(${Math.round((ProgressEvent.loaded / ProgressEvent.total) * 100, 2)}%) Image Uploader`;
           }
         })
         .then(res => {
           if (res.statusText === "OK") {
-            // this.setState({
-            //   message: res.data.message
-            // });
+            setResMessage(res.data.message);
           }
         })
         .catch(err => {
           setLoaded(0);
-          // this.setState({
-          //   message: err.message, // 'Something is wrong :('
-          //   loaded: 0
-          // });
+          setResMessage(err.message);
           console.log(err);
         });
     }
@@ -319,6 +315,7 @@ const Form = () => {
               label={formEl.config.elConfig.placeholder}
               error={formEl.config.error}
               changed={e => handleInputChanged(e, formEl.id)}
+              blured={e => handleBlur(e, formEl.id)}
             />
           );
         })}
@@ -345,6 +342,7 @@ const Form = () => {
 
   return (
     <div className={classes.Form}>
+      <span className={classes.message}>{resMessage}</span>
       <h2 className={classes.Form_h2}>Enter Your Data</h2>
       {formHTML}
     </div>
