@@ -228,7 +228,20 @@ const Form = () => {
       }
     }
 
+    if (attachedImgJSON.scenes.length !== attachedRoadJSON.data.length) {
+      const diff = Math.abs(attachedImgJSON.scenes.length - attachedRoadJSON.data.length);
+
+      for (let i = 0; i < diff; i++) {
+        const idxFunc = () => {
+          const rand = Math.floor(Math.random() * attachedRoadJSON.data.length);
+          return rand === 0 || rand === attachedRoadJSON.data.length - 1 ? idxFunc() : rand;
+        };
+        attachedRoadJSON.data.splice(idxFunc(), 1);
+      }
+    }
+
     const imgJSON = { ...attachedImgJSON };
+
     if ("scenes" in imgJSON) {
       imgJSON.scenes.forEach((scene, i) => {
         scene.latitude = attachedRoadJSON.data[i].latitude;
