@@ -220,6 +220,7 @@ const Form = () => {
 
   const handleSubmit = e => {
     e.preventDefault();
+    setResMessage("");
 
     const formData = {};
     for (let formElIdentifier in form) {
@@ -228,7 +229,17 @@ const Form = () => {
       }
     }
 
+    console.log(attachedImgJSON.scenes.length, attachedRoadJSON.data.length);
     if (attachedImgJSON.scenes.length !== attachedRoadJSON.data.length) {
+      if (attachedRoadJSON.data.length < attachedImgJSON.scenes.length) {
+        setResMessage(
+          `Road JSON data (${attachedRoadJSON.data.length}) is lesser than image data (${
+            attachedImgJSON.scenes.length
+          }).`
+        );
+        return;
+      }
+
       const diff = Math.abs(attachedImgJSON.scenes.length - attachedRoadJSON.data.length);
 
       for (let i = 0; i < diff; i++) {
@@ -241,6 +252,11 @@ const Form = () => {
     }
 
     const imgJSON = { ...attachedImgJSON };
+
+    if (!("defaultLinkHotspots" in imgJSON)) {
+      setResMessage("defaultLinkHotspots is required!");
+      return;
+    }
 
     if ("scenes" in imgJSON) {
       imgJSON.scenes.forEach((scene, i) => {
@@ -258,7 +274,7 @@ const Form = () => {
     const data = new FormData();
     if (imgJSON !== null) {
       data.append("area", formData.area);
-      data.append("road_name", formData.roadName);
+      data.append("road_name", formData.roadName.split("_")[0]);
       data.append("speed", formData.speed);
       data.append("road_lane", formData.roadLane);
       data.append("road_types", updatedRoadTypes);
@@ -291,11 +307,13 @@ const Form = () => {
         .then(res => {
           if (res.statusText === "OK") {
             setResMessage(res.data.message);
+            document.title = "Image Uploader";
           }
         })
         .catch(err => {
           setLoaded(0);
           setResMessage(err.message);
+          document.title = "Uploading failed";
           console.log(err);
         });
     }
