@@ -28,12 +28,35 @@ const Form = () => {
   const [attachedZip, setAttachedZip] = useState(null);
   const [loaded, setLoaded] = useState(0);
   const [resMessage, setResMessage] = useState("");
+  const [formChanged, setFormChanged] = useState(false);
 
   useEffect(() => {
     axios.get("https://map.barikoi.xyz:8070/api/area").then(res => {
       setAreas(res.data);
     });
   }, []);
+
+  // const isDirty = () => false;
+
+  // window.onload = function() {
+  //   window.addEventListener("beforeunload", function(e) {
+  //     if (formSubmitting || !isDirty()) {
+  //       return undefined;
+  //     }
+
+  //     const confirmationMessage =
+  //       "It looks like you have been editing something. " + "If you leave before saving, your changes will be lost.";
+
+  //     (e || window.event).returnValue = confirmationMessage; //Gecko + IE
+  //     return confirmationMessage; //Gecko + Webkit, Safari, Chrome etc.
+  //   });
+  // };
+
+  window.addEventListener("beforeunload", event => {
+    if (formChanged) {
+      event.returnValue = `Are you sure you want to leave?`;
+    }
+  });
 
   const optionsEl = [];
   areas.forEach(area => {
@@ -163,6 +186,8 @@ const Form = () => {
   };
 
   const handleInputChanged = (e, inputIdentifier) => {
+    setFormChanged(true);
+
     if (form[inputIdentifier].elConfig.type === "file") {
       if (inputIdentifier !== "zipFile") {
         const selectedFile = e.target.files[0];
