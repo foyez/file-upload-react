@@ -73,7 +73,7 @@ const Input = props => {
 
   return (
     <div className={classes.Input}>
-      <label className={classes.Label}>{props.label}</label>
+      <label className={classes.Label}>{props.label}{props.shouldValidate.required && <span className={classes.Required}>✱</span>}</label>
       <span className={classes.Error}>{props.error}</span>
       {inputEl}
     </div>

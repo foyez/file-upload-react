@@ -55,6 +55,15 @@
   display: block;
 }
 
+.Required {
+  display: inline-block;
+  color: #ff794f;
+  margin-left: .4rem;
+  font-size: .9rem;
+  padding-bottom: 0px;
+  position: absolute;
+}
+
 @media only screen and (min-width: 600px) {
   .Form {
     width: 500px;

@@ -164,7 +164,7 @@ const Form = () => {
       elConfig: {
         type: "file",
         placeholder: "Tiles Zip File",
-        accept: ".zip"
+        accept: ".zip, .rar"
       },
       value: "",
       validation: {},
@@ -376,7 +376,7 @@ const Form = () => {
           );
         })}
         <div className={classes.Input}>
-          <label className={classes.Label}>Select Road Types</label>
+          <label className={classes.Label}>Select Road Types <span className={classes.Required}>✱</span></label>
           <Select
             className={classes.InputEl}
             closeMenuOnSelect={false}

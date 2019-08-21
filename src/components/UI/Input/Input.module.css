@@ -11,6 +11,15 @@
   text-align: left;
 }
 
+.Required {
+  display: inline-block;
+  color: #ff794f;
+  margin-left: .4rem;
+  font-size: .9rem;
+  padding-bottom: 0px;
+  position: absolute;
+}
+
 .InputEl {
   outline: none;
   border: 1px solid #ccc;
