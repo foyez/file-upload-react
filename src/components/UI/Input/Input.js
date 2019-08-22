@@ -10,6 +10,10 @@ const Input = props => {
     inputClasses.push(classes.Invalid);
   }
 
+  if (props.elConfig.type === "file") {
+    inputClasses.push(classes.InvisibleUpload);
+  }
+
   switch (props.elType) {
     case "input":
       inputEl = (
@@ -20,6 +24,20 @@ const Input = props => {
           onChange={props.changed}
           onBlur={props.blured}
         />
+      );
+      break;
+    case "inputFile":
+      inputEl = (
+        <div className={[classes.ButtonUtility, classes.VisibleUpload].join(" ")}>
+          <span className={classes.LabelName}>{props.elConfig.placeholder}</span>
+          <input
+            className={inputClasses.join(" ")}
+            {...props.elConfig}
+            value={props.value}
+            onChange={props.changed}
+            onBlur={props.blured}
+          />
+        </div>
       );
       break;
     case "textarea":
@@ -73,7 +91,10 @@ const Input = props => {
 
   return (
     <div className={classes.Input}>
-      <label className={classes.Label}>{props.label}{props.shouldValidate.required && <span className={classes.Required}>✱</span>}</label>
+      <label className={classes.Label}>
+        {props.label}
+        {props.shouldValidate.required && <span className={classes.Required}>✱</span>}
+      </label>
       <span className={classes.Error}>{props.error}</span>
       {inputEl}
     </div>

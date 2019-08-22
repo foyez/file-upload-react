@@ -14,8 +14,8 @@
 .Required {
   display: inline-block;
   color: #ff794f;
-  margin-left: .4rem;
-  font-size: .9rem;
+  margin-left: 0.4rem;
+  font-size: 0.9rem;
   padding-bottom: 0px;
   position: absolute;
 }
@@ -47,4 +47,64 @@
   display: block;
   text-align: left;
   /* font-weight: 800; */
+}
+
+.VisibleUpload {
+  position: relative;
+  margin-right: 15px;
+  padding-left: 41px;
+  /* width: 230px; */
+  /* height: 40px; */
+  width: 100%;
+}
+
+.InvisibleUpload {
+  position: absolute;
+  top: 0px;
+  left: 0px;
+  opacity: 0;
+  -ms-filter: "progid:DXImageTransform.Microsoft.Alpha(Opacity=0)";
+  filter: alpha(opacity=0);
+  cursor: pointer;
+
+  /* width: 230px; */
+  /* height: 40px; */
+  width: 100%;
+}
+
+.ButtonUtility {
+  background: #ebecf0;
+  color: #9696a2;
+  border: 1px solid #dfe0e4;
+
+  font: normal 700 14px/1.4 Lato;
+  text-transform: uppercase;
+  letter-spacing: 2px;
+  text-align: center;
+  -webkit-border-radius: 3px;
+  border-radius: 3px;
+  height: auto;
+  position: relative;
+  display: inline-block;
+  margin: 0;
+  font-size: 14px;
+  font-weight: normal;
+  line-height: 1.33;
+  padding: 10px 15px;
+  white-space: nowrap;
+  vertical-align: middle;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  appearance: none;
+}
+
+.LabelName {
+  line-height: 1.33;
+  display: block;
+  overflow: hidden;
 }

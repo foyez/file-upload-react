@@ -70,6 +70,7 @@ const Form = () => {
   const [form, setForm] = useState({
     area: {
       elType: "select",
+      labelName: "Area",
       elConfig: {
         // options: [{ value: "fastest", displayValue: "Fastest" }, { value: "cheapest", displayValue: "Cheapest" }]
         defaultValue: "Select an area",
@@ -85,6 +86,7 @@ const Form = () => {
     },
     roadName: {
       elType: "input",
+      labelName: "Road Name",
       elConfig: {
         type: "text",
         placeholder: "Road Name"
@@ -101,6 +103,7 @@ const Form = () => {
     },
     roadLane: {
       elType: "input",
+      labelName: "Road Lane",
       elConfig: {
         type: "text",
         placeholder: "Road Lane"
@@ -116,9 +119,10 @@ const Form = () => {
     },
     speed: {
       elType: "input",
+      labelName: "Max Speed",
       elConfig: {
         type: "text",
-        placeholder: "Average Speed"
+        placeholder: "Maximum Speed"
       },
       value: "",
       validation: {
@@ -130,10 +134,11 @@ const Form = () => {
       error: ""
     },
     imgJSON: {
-      elType: "input",
+      elType: "inputFile",
+      labelName: "Image JSON",
       elConfig: {
         type: "file",
-        placeholder: "Image JSON",
+        placeholder: "Attach Image JSON",
         accept: ".json"
       },
       value: "",
@@ -145,10 +150,11 @@ const Form = () => {
       error: ""
     },
     roadJSON: {
-      elType: "input",
+      elType: "inputFile",
+      labelName: "Road JSON",
       elConfig: {
         type: "file",
-        placeholder: "Road JSON",
+        placeholder: "Attach Road JSON",
         accept: ".json"
       },
       value: "",
@@ -160,10 +166,11 @@ const Form = () => {
       error: ""
     },
     zipFile: {
-      elType: "input",
+      elType: "inputFile",
+      labelName: "Tiles Zip File",
       elConfig: {
         type: "file",
-        placeholder: "Tiles Zip File",
+        placeholder: "Attach Tiles Zip File",
         accept: ".zip, .rar"
       },
       value: "",
@@ -189,6 +196,12 @@ const Form = () => {
     setFormChanged(true);
 
     if (form[inputIdentifier].elConfig.type === "file") {
+      // if (e.target.files[0]) {
+      //   const updatedElConfig = updateObj(form[inputIdentifier].elConfig, {
+      //     placeholder: e.target.files[0].name
+      //   });
+      // }
+
       if (inputIdentifier !== "zipFile") {
         const selectedFile = e.target.files[0];
         const fileReader = new FileReader();
@@ -221,6 +234,7 @@ const Form = () => {
 
     const updatedFormEl = updateObj(form[inputIdentifier], {
       value: e.target.value,
+      // elConfig: updatedElConfig,
       valid: returnedCheckValidity.isValid,
       error: errorMsg,
       touched: true
@@ -363,12 +377,12 @@ const Form = () => {
             <Input
               key={formEl.id}
               elType={formEl.config.elType}
+              label={formEl.config.labelName}
               elConfig={formEl.config.elConfig}
               value={formEl.config.value}
               invalid={!formEl.config.valid}
               shouldValidate={formEl.config.validation}
               touched={formEl.config.touched}
-              label={formEl.config.elConfig.placeholder}
               error={formEl.config.error}
               changed={e => handleInputChanged(e, formEl.id)}
               blured={e => handleBlur(e, formEl.id)}
@@ -376,7 +390,9 @@ const Form = () => {
           );
         })}
         <div className={classes.Input}>
-          <label className={classes.Label}>Select Road Types <span className={classes.Required}>✱</span></label>
+          <label className={classes.Label}>
+            Select Road Types <span className={classes.Required}>✱</span>
+          </label>
           <Select
             className={classes.InputEl}
             closeMenuOnSelect={false}
